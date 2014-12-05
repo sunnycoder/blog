@@ -1,0 +1,30 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Blog</title>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+</head>
+<body>
+	<header>
+		<h1><%= title %></h1>
+	</header>
+	<nav>
+		<span><a title="Home" href="/">home</a></span>
+		<% if(user) {  %>
+		<span><a href="/post" title="post">post</a></span>
+		<span><a href="/logout" title="logout">logout</a></span>
+		<% } else { %>
+		<span><a title="Login" href="/login">login</a></span>
+		<span><a title="Register" href="/reg">register</a></span>
+		<% } %>
+	</nav>
+<article>
+<% if (success) { %>
+	<div><%= success  %></div>
+<% } %>
+<% if (error) { %>
+	<div><%= error %></div>
+<% }  %>		
