@@ -13,7 +13,7 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
-
+var multer = require('multer');
 
 var app = express();
 
@@ -51,6 +51,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 routes(app);
 
+
+
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
@@ -81,7 +83,18 @@ app.use(function(err, req, res, next) {
     });
 });
 
-
+// 使用express的第三方中间件 multer 实现文件上传功能。
+app.use(multer({
+    dest: './public/images/',    // 上传的文件所在的目录
+    rename: function (fieldname,filename) {
+        // return filename.replace(/\W+/g, '-').toLowerCase() + Date.now();    
+        return filename;        // 保持原来的文件名
+    },
+    onError: function (error, next) {
+         console.log(error)
+         next(error)
+        }
+}));
 
 
 module.exports = app;

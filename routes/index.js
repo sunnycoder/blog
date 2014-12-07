@@ -1,5 +1,7 @@
 /**
 *路由器用于捕获各种请求
+*添加了一条路由规则 app.get('',function(){})
+*响应接收处理 		app.post
 */
 
 // var express = require('express');
@@ -19,7 +21,7 @@ var crypto =require('crypto'),  // 用它生成散列值来加密密码。
 
 module.exports = function (app) {
 	app.get('/',function (req,res) {
-		Post.get(null,function (err,posts) {
+		Post.getAll(null,function (err,posts) {
 			if(err) {
 				console.log("message");
 				posts = [];
@@ -108,6 +110,10 @@ module.exports = function (app) {
 		// check user if exist
 		User.get(req.body.name,function (err,user) {
 			if(!user) {
+				req.flash('error','user not exist!');
+				return res.redirect('/login');
+			}
+			if(user.password != password) {
 				req.flash('error',"password error");
 				return res.redirect('/login');
 			}
@@ -144,6 +150,116 @@ module.exports = function (app) {
 		req.flash('success','logout success');
 		res.redirect('/');
 	});
+	app.get('/upload',checkLogin);
+	app.get('/upload',function (req,res) {
+		res.render('upload',{
+			title: 'files upload',
+			user: req.session.user,
+			success: req.flash('success').toString(),
+			error: req.flash('error').toString()
+		});
+	});
+	// 对上传文件的支持
+	app.post('/upload',checkLogin);
+	app.post('/upload',function (req,res) {
+		console.log(req.body);
+		console.log(req.files);
+		req.flash('success','files upload success!');
+		res.redirect('/upload');
+	});
+
+	// 路由规则 app.get('/u/:name') 用来处理访问用户页的请求
+	// 从数据库取得该用户的数据并渲染 user.ejs 模版，生成页面并显示给用户。
+	app.get('/u/:name',function (req,res) {
+		// 检查用户是否存在
+		User.get(req.params.name,function (err,user) {
+			if (!user) {
+				req.flash('error','user not exist!');
+				return res.redirect('/'); // 用户不存在则跳转到主页
+			}
+			// 查询并返回该用户的所有文章
+			Post.getAll(user.name,function (err,posts) {
+				if (err) {
+					req.flash('error',err);
+					return res.redirect('/');
+				}
+				res.render('user', {
+					title : user.name,
+					posts : posts,
+					user : req.session.user,
+					success : req.flash('success').toString(),
+					error: req.flash('error').toString()
+				});
+			});
+		});
+	});
+
+	// 添加文章页面的路由规则
+	app.get('/u/:name/:day/:title',function (req,res) {
+		Post.getOne(req.params.name,req.params.day,req.params.title,function (err,post) {
+			if (err) {
+				req.flash('error',err);
+				return res.redirect('/');
+			}
+			res.render('article',{
+				title : req.params.title,
+				post : post,
+				user : req.session.user,
+				success : req.flash('success').toString(),
+				error : req.flash('erroe').toString()
+			});
+		});
+	});
+
+	// 添加文章编辑页面的路由规则
+	app.get('/edit/:name/:day/:title',checkLogin);
+	app.get('/edit/:name/:day/:title',function (req,res) {
+		var currentUser = req.session.user;
+		Post.edit(currentUser.name,req.params.day,req.params.title,function (err,post) {
+			if (err) {
+			req.flash('error',err);
+			return res.redirect('back');
+		}
+		res.render('edit',{
+			title: 'edit',
+			post: post,
+			user :req.session.user,
+			success : req.flash('success').toString(),
+			error : req.flash('error').toString()
+			});
+		
+		});
+	});
+
+	// 添加文件编辑保存提交表单处理
+	app.post('/edit/:name/:day/:title',checkLogin);
+	app.post('/edit/:name/:day/:title',function (req,res) {
+		var currentUser = req.session.user;
+		Post.update(currentUser.name,req.params.day,req.params.title,req.body.post,function (err) {
+			var url = encodeURI('/u/'+req.params.name+'/'+req.params.day+'/'+req.params.title);
+			if (err) {
+				req.flash('error',err);
+				return res.redirect(url); // 出错，返回所编辑的文章页
+			}
+			req.flash('success','edit success');
+			res.redirect(url); // 成功，返回文章页
+		});
+	});
+
+	// 添加删除文章的路由规则
+	app.get('/remove/:name/:day/:title',checkLogin);
+	app.get('/remove/:name/:day/:title',function (req,res) {
+		var currentUser = req.session.user;
+		Post.remove(currentUser.name,req.params.day,req.params.title,function (err) {
+			if (err) {
+				req.flash('error',err);
+				return res.redirect('back');
+			}
+			req.flash('success','remove success!');
+			return res.redirect('/');
+		});
+	});	
+
 
 	function checkLogin(req,res,next) {
 		if (!req.session.user) {
