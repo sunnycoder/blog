@@ -13,6 +13,9 @@
 	</header>
 	<nav>
 		<span><a title="Home" href="/">home</a></span>
+		<span><a href="/archive" title="archive">archive</a></span>	
+		<span><a href="/tags" title="tags">tags</a></span>
+		<span><a href="/links" title="links">links</a></span>
 		<% if(user) {  %>
 		<span><a href="/upload" title="upload">upload</a></span>
 		<span><a href="/post" title="post">post</a></span>
@@ -21,6 +24,7 @@
 		<span><a title="Login" href="/login">login</a></span>
 		<span><a title="Register" href="/reg">register</a></span>
 		<% } %>
+		<span><form action="/search" method="GET"> <input type="text" name="keyword" placeholder="SEARCH" class="search"></form></span>
 	</nav>
 <article>
 <% if (success) { %>

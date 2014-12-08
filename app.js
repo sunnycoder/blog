@@ -14,6 +14,7 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
 var multer = require('multer');
+var fs = require('fs');
 
 var app = express();
 
@@ -31,6 +32,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// // 使用express的第三方中间件 multer 实现文件上传功能。   代码必须放在这里！！！才能被执行！
+// app.use(multer({
+//     dest: './public/images/',    // 上传的文件所在的目录
+//     rename: function (fieldname,filename) {
+//         // return filename.replace(/\W+/g, '-').toLowerCase() + Date.now();    
+//         return filename;        // 保持原来的文件名
+//     }
+// }));
 
 app.use(cookieParser());
 app.use(session({
@@ -48,6 +57,15 @@ app.use(session({
 
 app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// 使用express的第三方中间件 multer 实现文件上传功能。   代码必须放在routes(app);之前！！！才能被执行！
+app.use(multer({
+    dest: './public/images/',    // 上传的文件所在的目录
+    rename: function (fieldname,filename) {
+        // return filename.replace(/\W+/g, '-').toLowerCase() + Date.now();    
+        return filename;        // 保持原来的文件名
+    }
+}));
 
 routes(app);
 
@@ -83,18 +101,7 @@ app.use(function(err, req, res, next) {
     });
 });
 
-// 使用express的第三方中间件 multer 实现文件上传功能。
-app.use(multer({
-    dest: './public/images/',    // 上传的文件所在的目录
-    rename: function (fieldname,filename) {
-        // return filename.replace(/\W+/g, '-').toLowerCase() + Date.now();    
-        return filename;        // 保持原来的文件名
-    },
-    onError: function (error, next) {
-         console.log(error)
-         next(error)
-        }
-}));
+
 
 
 module.exports = app;

@@ -8,6 +8,14 @@
 <p class="info">
 	author: <a href="/u/<%= post.name %>"> <%= post.name %> </a> |
 	date : <%= post.time.minute %>
+	tags: 
+      <% post.tags.forEach(function (tag,index) { %>
+      <% if(tag) { %>
+      <a class="tag" href="/tags/<%= tag %>"> <%= tag %> </a>
+      <% } %>
+      <% }) %>
 </p>	
-<p> <%- post.post %> </p>	
+<p> <%- post.post %> </p>
+<p class="info">read:<%= post.pv %> | comment:<%= post.comments.length %></p>	
+<%- include comment  %>
 <%- include footer %>

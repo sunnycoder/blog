@@ -16,12 +16,16 @@
 
 var crypto =require('crypto'),  // 用它生成散列值来加密密码。
     User = require('../models/user.js'),
-    Post = require('../models/post.js');
-
-
+    Post = require('../models/post.js'),
+    Comment = require('../models/comment.js');
+var fs = require("fs"),
+	formidable = require("formidable");
 module.exports = function (app) {
 	app.get('/',function (req,res) {
-		Post.getAll(null,function (err,posts) {
+		// 判断是否为第一页，并把请求的页数转换成number类型
+		var page = req.query.p ? parseInt(req.query.p) : 1;
+		// 查询并返回第page页的10篇文章
+		Post.getTen(null,page,function (err,posts,total) {
 			if(err) {
 				console.log("message");
 				posts = [];
@@ -30,6 +34,9 @@ module.exports = function (app) {
 			title:'Home',
 			user:req.session.user,
 			posts:posts,
+			page : page,
+			isFirstPage : (page - 1) == 0,
+			isLastPage : ((page - 1) * + posts.length) == total,
 			success:req.flash('success').toString(),
 			error:req.flash('error').toString()
 		  });
@@ -135,7 +142,8 @@ module.exports = function (app) {
 	app.post('/post',checkLogin);
 	app.post('/post',function (req,res) {
 		var currentUser = req.session.user,
-			post = new Post(currentUser.name,req.body.title,req.body.post);
+			tags = [req.body.tag1,req.body.tag2,req.body.tag3],
+			post = new Post(currentUser.name,currentUser.head,req.body.title,tags,req.body.post);
 		post.save(function (err) {
 			if (err) {
 				req.flash('error',err);
@@ -162,23 +170,104 @@ module.exports = function (app) {
 	// 对上传文件的支持
 	app.post('/upload',checkLogin);
 	app.post('/upload',function (req,res) {
-		console.log(req.body);
-		console.log(req.files);
-		req.flash('success','files upload success!');
-		res.redirect('/upload');
+		console.log("Request handler 'upload' was called.");
+		// var form = new formidable.IncomingForm();
+		// form.parse(req,function (error,fidlds,files) {
+			req.flash('success','files upload success!');
+			res.redirect('/upload');
+	    // });
+		
+	});
+	// 存档的路由规则
+	app.get('/archive',function (req,res) {
+		Post.getArchive(function (err,posts) {
+			if (err) {
+				req.falsh('error',err);
+				return res.redirect('/');
+			}
+			res.render('archive',{
+				title : 'archive',
+				posts : posts,
+				user : req.session.user,
+				success : req.flash('success').toString(),
+				error : req.flash('error').toString()
+			});
+		});
+	});
+
+	// 标签的路由规则
+	app.get('/tags',function (req,res) {
+		Post.getTags(function (err,posts) {
+			if (err) {
+				req.flash('error',err);
+				return res.redirect('/');
+			}
+			res.render('tags',{
+				title : "tags",
+				posts : posts,
+				user : req.session.user,
+				success : req.flash('success').toString(),
+				error : req.flash('error').toString()
+			});
+		});
+	});
+
+	// 和标签相关的所有文档页面
+	app.get('/tags/:tag',function (req,res) {
+		Post.getTag(req.params.tag,function (err,posts) {
+			if (err) {
+				req.flash('error',err);
+				return res.redirect('/');
+			}
+			res.render('tag',{
+				title : 'TAG:' + req.params.tag,
+				posts : posts,
+				user : req.session.user,
+				success : req.flash('success').toString(),
+				error : req.flash('error').toString()
+			});
+		});
+	});
+
+	// 友情链接
+	app.get('/links',function (req,res) {
+		res.render('links',{
+			title : "links",
+			user : req.session.user,
+			success : req.flash('success').toString(),
+			error : req.flash('error').toString()
+		});
+	});
+
+	// 查询请求路由规则
+	app.get('/search',function (req,res) {
+		Post.search(req.query.keyword,function (err,posts) {
+			if (err) {
+				req.flash('error',err);
+				return redirect('/');
+			}
+			res.render('search',{
+				title : "SEARCH:" +req.query.keyword,
+				posts :posts,
+				user : req.session.user,
+				success : req.flash('success').toString(),
+				error : req.flash('error').toString()
+			});
+		});
 	});
 
 	// 路由规则 app.get('/u/:name') 用来处理访问用户页的请求
 	// 从数据库取得该用户的数据并渲染 user.ejs 模版，生成页面并显示给用户。
 	app.get('/u/:name',function (req,res) {
+		var page = req.query.p ? parseInt(req.query.p) : 1;
 		// 检查用户是否存在
 		User.get(req.params.name,function (err,user) {
 			if (!user) {
 				req.flash('error','user not exist!');
 				return res.redirect('/'); // 用户不存在则跳转到主页
 			}
-			// 查询并返回该用户的所有文章
-			Post.getAll(user.name,function (err,posts) {
+			// 查询并返回该用户的第page页的10篇文章
+			Post.getTen(user.name,page,function (err,posts,total) {
 				if (err) {
 					req.flash('error',err);
 					return res.redirect('/');
@@ -186,6 +275,9 @@ module.exports = function (app) {
 				res.render('user', {
 					title : user.name,
 					posts : posts,
+					page :page,
+					isFirstPage : (page - 1) == 0,
+					isLastPage : ((page -1) * 10 + posts.length) == total,
 					user : req.session.user,
 					success : req.flash('success').toString(),
 					error: req.flash('error').toString()
@@ -206,9 +298,36 @@ module.exports = function (app) {
 				post : post,
 				user : req.session.user,
 				success : req.flash('success').toString(),
-				error : req.flash('erroe').toString()
+				error : req.flash('error').toString()
 			});
 		});
+	});
+	// 留言功能
+	app.post('/u/:name/:day/:title',function (req,res) {
+		// console.log(req.body.content);
+		var date = new Date(),
+			time = date.getFullYear() + "-" + date.getDate() + " " +
+				   date.getHours() + ":" + (date.getMinutes() < 10 ? '0' +date.getMinutes() : date.getMinutes() );
+		var md5 = crypto.createHash('md5'),
+			email_MD5 = md5.update(req.body.email.toLowerCase()).digest('hex'),
+			head = "http://en.gravatar.com/avatar/" +email_MD5 + "?s=48";
+		var comment = {
+			name : req.body.name,
+			head: head,
+			email : req.body.email,
+			website : req.body.website,
+			time : time,
+			content : req.body.content
+		};
+		var newComment = new Comment(req.params.name,req.params.day,req.params.title,comment);
+		newComment.save ( function (err) {
+			if (err) {
+				req.flash('error',err);
+				return res.redirect('back');
+			}
+			req.flash('success','comment success!');
+			res.redirect('back');
+		});		   	
 	});
 
 	// 添加文章编辑页面的路由规则
@@ -260,6 +379,9 @@ module.exports = function (app) {
 		});
 	});	
 
+	app.use(function (req,res) {
+		res.render("404");
+	})
 
 	function checkLogin(req,res,next) {
 		if (!req.session.user) {
