@@ -1,0 +1,68 @@
+.off_screen {
+  position: absolute;
+  left: -999em; }
+
+form.formtastic li {
+  margin-bottom: 15px; }
+  form.formtastic li label {
+    display: block;
+    padding: 0 0 2px 2px;
+    font-size: 13px;
+    color: #0084d4;
+    font-family: "Droid Sans", Tahoma, Arial, sans-serif;
+    font-size: 12px;
+    color: black;
+    min-width: 125px;
+    color: #404447; }
+    form.formtastic li label abbr {
+      padding-left: 5px;
+      color: #5a5a5a; }
+  form.formtastic li.string input, form.formtastic li.email input, form.formtastic li.password input, form.formtastic li.url input {
+    font-family: "Droid Sans", Tahoma, Arial, sans-serif;
+    font-size: 12px;
+    color: black;
+    border: 1px solid #338199;
+    border-color: #1d91d7;
+    border-color: #c0daea;
+    padding: 7px 3px 7px 7px;
+    font-size: 15px;
+    letter-spacing: 0.2px;
+    margin: 3px 0 0 1px;
+    background: white;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px; }
+    form.formtastic li.string input.txt_medium, form.formtastic li.email input.txt_medium, form.formtastic li.password input.txt_medium, form.formtastic li.url input.txt_medium {
+      width: 250px; }
+    form.formtastic li.string input.txt_large, form.formtastic li.email input.txt_large, form.formtastic li.password input.txt_large, form.formtastic li.url input.txt_large {
+      width: 400px; }
+    form.formtastic li.string input.txt_email, form.formtastic li.email input.txt_email, form.formtastic li.password input.txt_email, form.formtastic li.url input.txt_email {
+      width: 350px; }
+  form.formtastic li.select label {
+    padding: 0 0 5px 2px; }
+  form.formtastic li.select select {
+    font-size: 14px;
+    min-width: 200px; }
+  form.formtastic li.boolean input, form.formtastic li.choice input {
+    margin: 2px 5px 0 3px;
+    float: left; }
+  form.formtastic li.hide_label legend.label {
+    display: none; }
+  form.formtastic li.hide_label abbr {
+    display: none; }
+  form.formtastic li.error p.inline-errors {
+    padding: 5px 5px 0px 0px;
+    font-family: "Droid Sans", Tahoma, Arial, sans-serif;
+    font-size: 12px;
+    color: black;
+    color: red;
+    font-size: 12px;
+    font-weight: normal; }
+  form.formtastic li.error input {
+    border-color: red; }
+form.formtastic fieldset ol li {
+  margin-bottom: 0em; }
+form.formtastic p.inline-hints {
+  font-size: 11px;
+  padding: 3px 0 3px 1px;
+  font-style: italic;
+  color: #333333; }

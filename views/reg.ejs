@@ -1,9 +1,33 @@
 <%- include header %>
-<form method="post">
-username: <input type="text" name="name" /><br/>			
-password: <input type="password" name="password"/><br/>
-Verify password:<input type="password" name="password-repeat"/><br/>
-mail: <input type="email" name="email"/> <br/>
-	  <input type="submit" value="Register">
+<div class='contain plans'>
+<form method="post" class="form-vertical formtastic account">
+<div class='reg '>
+<h4>Create Blog Account</h4>
+<fieldset style='padding-top: 25px;'>
+<li calss="string input optional stringish"> 
+<label  for="username">USERNAME </label> 
+	<input type="text" name="name" maxlength="255" /><br/>		
+</li>	
+<li calss="string input optional stringish"> 
+<label  for="password">PASSWORD</label>	
+	<input type="password" name="password" maxlength="16" /><br/>
+</li>
+<li calss="string input optional stringish"> 
+<label  for="CONFIRM PASSWORD">CONFIRM PASSWORD</label>	
+	<input type="password" name="password-repeat" maxlength="16"/><br/>
+</li>
+<li calss="string input optional stringish"> 
+<label  for="mail">MAIL</label> 	
+	<input type="email" name="email"  maxlength="255"/> <br/>
+</li>	
+<input id="account_terms" name="account[terms]" type="checkbox" value="1" /> 
+<label class="" for="account_terms" name="account[terms]">I have fully read and understand the link_to <a href="http://docs.mongohq.com/policies/terms.html" target="_blank">Terms of Service</a> for Blog
+</label>
+	<input type="submit" class="btn btn-success" style="padding: 20px; font-size: 15px; value="Register">
+</div>
+
+	  
+</fieldset>
 </form>	
+</div>
 <%- include footer %>

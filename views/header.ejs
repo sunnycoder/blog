@@ -6,12 +6,12 @@
 	<meta charset="UTF-8">
 	<title>Blog</title>
 	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css">
+	
 </head>
-<body>
-	<header>
-		<h1><%= title %></h1>
-	</header>
-	<nav>
+<body class="warpper">
+<!-- 	<a href="/"><img alt="Blog.  Yep, it is that easy." src="/images/mhq_top_small.png?1412704177"  class='navigation'/> -->
+	<nav class="navigation">
 		<span><a title="Home" href="/">home</a></span>
 		<span><a href="/archive" title="archive">archive</a></span>	
 		<span><a href="/tags" title="tags">tags</a></span>
@@ -26,6 +26,9 @@
 		<% } %>
 		<span><form action="/search" method="GET"> <input type="text" name="keyword" placeholder="SEARCH" class="search"></form></span>
 	</nav>
+		<header >
+		<h1><%= title %></h1>
+	</header>
 <article>
 <% if (success) { %>
 	<div><%= success  %></div>
@@ -33,3 +36,5 @@
 <% if (error) { %>
 	<div><%= error %></div>
 <% }  %>		
+
+	

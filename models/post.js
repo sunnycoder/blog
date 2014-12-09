@@ -32,6 +32,7 @@ Post.prototype.save = function (callback) {
 		tags : this.tags,
 		post: this.post,
 		comments : [],
+		reprint_info : {},
 		pv : 0
 	};
 	// open db
@@ -218,7 +219,7 @@ Post.update = function (name,day,title,post,callback) {
 	});
 };
 
-//删除一篇文章
+//删除一篇文章(包括转载信息)
 	Post.remove = function (name,day,title,callback) {
 		// 打开数据库
 		mongodb.open(function (err,db) {
@@ -231,6 +232,44 @@ Post.update = function (name,day,title,post,callback) {
 					mongodb.close();
 					return callback(err);
 				}
+				// 查询要删除的文档
+				collection.findOne({
+					"name" : name,
+					"time.day" :day,
+					"title" : title
+				},function (err,doc) {
+					if (err) {
+						mongodb.close();
+						return callback(err);
+					}
+					// 如果有reprint_from 说明该文章是转载来的，先保存下来reprint_from
+					var reprint_from = "";
+					if (doc.reprint_info.reprint_from) {
+						reprint_from = doc.reprint_info.reprint_from;
+					}
+					if (reprint_from != "") {
+						// 更新原文章所在文档的reprint_to
+						collection.update({
+							"name" :reprint_from.name,
+							"time.day" : reprint_from.day,
+							"title" : reprint_from.title
+						},{
+							$pull: {			// $pull 来删除数组中的特定项
+								"reprint_info.reprint_to" : {
+									"name" : name,
+									"day" : day,
+									"title" : title
+								}
+							}
+						},function (err) {
+							if (err) {
+								mongodb.close();
+								return callback(err);
+							}
+						});
+					}
+
+				// 删除转载来的文章所在的文档
 				// 根据用户名、日期和标题查找并删除一篇文章
 				collection.remove({
 					"name" :name,
@@ -247,6 +286,7 @@ Post.update = function (name,day,title,post,callback) {
 				});
 			});
 		});
+	  });
 	};
 
 // 返回所有文章的存档信息
@@ -373,4 +413,83 @@ Post.search = function (keyword,callback) {
 		});
 	});
 };
+
+// 转载一篇文章
+Post.reprint = function (reprint_from,reprint_to,callback) {
+	// open db
+	mongodb.open(function (err,db) {
+		if (err) {
+			return callback(err);
+		}
+		// read posts collection
+		db.collection('posts',function (err,collection) {
+			if (err) {
+				mongodb.close();
+				return callback(err);
+			}
+			// 找到被转载的文章的原文档
+			collection.findOne({
+				"name" : reprint_from.name,
+				"time.day" : reprint_from.day,
+				"title" : reprint_from.title
+			},function (err,doc) {
+				if (err) {
+					mongodb.close();
+					return callback(err);
+				}
+
+				var date = new Date();
+				var time = {
+					date : date,
+					year : date.getFullYear(),
+					month : date.getFullYear() + '-' + (date.getMonth() + 1),
+					day : date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
+					minute : date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + 
+            				 date.getHours() + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes())
+					}
+			    delete doc._id; // 删掉原来的_id
+			    
+			    doc.name = reprint_to.name;
+			    doc.head = reprint_to.head;
+			    doc.time = time;
+			    doc.title = (doc.title.search(/[转载]/) > 1) ? doc.title : "[转载]" + doc.title;
+			    doc.comments = [];
+			    doc.reprint_info = {"reprint_from" : reprint_from};
+			    doc.pv = 0;
+
+			    // 更新被转载的原文档的reprint_info 内的reprint_to
+			    collection.update({
+			    	"name" : reprint_from.name,
+			    	"time.day" : reprint_from.day,
+			    	"title" : reprint_from.title
+			    },{
+			    	$push: {
+			    		"reprint_info.reprint_to" : {
+			    			"name" :doc.name,
+			    			"day" :time.day,
+			    			"title" :doc.title
+			    		}
+			    	}
+			    },function (err) {
+			    	if (err) {
+			    		mongodb.close();
+			    		return callback(err);
+			    	}
+			    });
+			    // 将转载生成的副本修改后存入数据库，并返回存储后的文档
+			    collection.insert(doc,{
+			    	safe : true
+			    },function (err,post) {
+			    	mongodb.close();
+			    	if (err) {
+			    		return callback(err);
+			    	}
+			    	callback(err,post[0]);
+			    });
+			});
+		});
+	});
+};
+
+
 /*return callback() // 返回，返回后执行回调函数*/

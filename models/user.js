@@ -1,4 +1,5 @@
 var mongodb = require('./db');
+
 var crypto = require('crypto');
 
 function User(user) {
@@ -6,7 +7,6 @@ function User(user) {
 	this.head = user.head;
 	this.password = user.password;
 	this.email = user.email;
-	this.h
 };
 
 module.exports = User;

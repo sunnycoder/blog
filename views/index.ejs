@@ -8,6 +8,7 @@
     </p>
     <div class="content"> 
   	<p class="info">
+ 
   		author: <a href="/u/<%= post.name %>"><%= post.name %></a>
   		date: <%= post.time.minute %>
       tags: 
@@ -16,9 +17,21 @@
       <a class="tag" href="/tags/<%= tag %>"> <%= tag %> </a>
       <% } %>
       <% }) %>
+          <% if (post.reprint_info.reprint_from) { %>
+            <br> <a href="/u/<%= post.reprint_info.reprint_from.name %>/<%=post.reprint_info_reprint_from_day %>/<%= post.reprint_info.reprint_from.title %>">原文链接</a>  
+    <% } %> 
   	</p>
   	<p class="post"><%- post.post %></p>
-    <p class="info">read:<%= post.pv %> | comment:<%= post.comments.length %></p>
+    <p class="info">
+    read:<%= post.pv %> | 
+    comment:<%= post.comments.length %> |
+    reprint:
+    <% if (post.reprint_info.reprint_to) { %>
+      <%= post.reprint_info.reprint_to.length %>
+      <% } else { %>
+      <%= 0 %>
+      <% } %>
+    </p>
     </div>
   	<% }) %>
   <%- include paging %>

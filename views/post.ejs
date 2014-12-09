@@ -1,11 +1,19 @@
 <%- include header %>
 <form method="post">
-	title: <br>
-	<input type="text" name="title"> <br>
-	tag : <br>
+<div class='reg '>
+	<li calss="string input optional stringish"> 
+	<label>title</label>
+	<input type="text" name="title" value="title" onfocus="this.value=''> <br>
+	</li>
+	<li class="string input optional stringish"> 
+	<label>tag </label>
 	<input type="text" name="tag1"/><input type="text" name="tag2"/><input type="text" name="tag3"/> <br>
-	Content: <br>
-	<textarea name="post" id="content" cols="100" rows="20"></textarea> <br>
-	<input type="submit" value="post">
+	</li>
+	<li calss="string input optional stringish"> 
+	<label>Content</label>
+	<textarea name="post" id="content" cols="500" rows="20" style="width='500px'"></textarea> <br>
+	</li>
+	<input type="submit" value="post" class="btn btn-success" style="padding: 10px; font-size: 15px;">
+	</div>
 </form>
 <%- include footer  %>

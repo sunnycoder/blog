@@ -15,6 +15,8 @@ var MongoStore = require('connect-mongo')(session);
 
 var multer = require('multer');
 var fs = require('fs');
+var accessLog = fs.createWriteStream('access.log', {flags:'a'});
+var errorLog = fs.createWriteStream('error.log',{flags:'a'});
 
 var app = express();
 
@@ -28,18 +30,11 @@ app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
+app.use(logger('dev')); //  Express 自带的logger 中间件实现了终端日志的输出
+app.use(logger({stream:accessLog})); // 把日志保存为日志文件
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// // 使用express的第三方中间件 multer 实现文件上传功能。   代码必须放在这里！！！才能被执行！
-// app.use(multer({
-//     dest: './public/images/',    // 上传的文件所在的目录
-//     rename: function (fieldname,filename) {
-//         // return filename.replace(/\W+/g, '-').toLowerCase() + Date.now();    
-//         return filename;        // 保持原来的文件名
-//     }
-// }));
 
 app.use(cookieParser());
 app.use(session({
@@ -57,6 +52,12 @@ app.use(session({
 
 app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
+//  将错误信息保存到了根目录下的 error.log 文件夹
+app.use(function (err,req,res,next) {
+    var meta = '[' +new Date() +']' + req.url + '\n';
+    errorLog.write(meta+err.stack + '\n');
+    next();
+});
 
 // 使用express的第三方中间件 multer 实现文件上传功能。   代码必须放在routes(app);之前！！！才能被执行！
 app.use(multer({

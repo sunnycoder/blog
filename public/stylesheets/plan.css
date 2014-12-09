@@ -1,0 +1,328 @@
+.off_screen {
+  position: absolute;
+  left: -999em; }
+
+.plan_set {
+  margin: 0 0 40px 0; }
+  .plan_set h2 {
+    font-weight: bold; }
+
+.plan_list {
+  font-family: "Droid Sans", Tahoma, Arial, sans-serif;
+  font-size: 12px;
+  color: black;
+  padding: 0px 0px 15px 0px;
+  color: #666666;
+  font-size: 13px; }
+  .plan_list .links {
+    font-size: 15px;
+    padding: 7px 0px; }
+
+.price_grid {
+  padding: 15px 15px 15px 15px;
+  background: #dfeff9;
+  border: 1px solid #43a2dc;
+  margin: 10px 0px 5px 0px;
+  opacity: 0.75;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px; }
+  .price_grid table {
+    width: 670px; }
+    .price_grid table tr.end td {
+      border-bottom: none; }
+    .price_grid table th {
+      font-weight: bold;
+      font-family: "Droid Sans", Tahoma, Arial, sans-serif;
+      font-size: 12px;
+      color: black;
+      color: #0084d4; }
+    .price_grid table th, .price_grid table td {
+      font-family: "Droid Sans", Tahoma, Arial, sans-serif;
+      font-size: 12px;
+      color: black;
+      color: #0084d4;
+      font-size: 14px;
+      width: 102px;
+      padding: 10px 5px;
+      border-right: 1px dotted #7da1b7;
+      border-bottom: 1px dotted #7da1b7;
+      text-align: center; }
+      .price_grid table th.end, .price_grid table td.end {
+        border-right: none; }
+      .price_grid table th.feature, .price_grid table td.feature {
+        color: #333333;
+        text-align: left;
+        width: 125px; }
+      .price_grid table th strong, .price_grid table td strong {
+        font-size: 17px; }
+    .price_grid table th {
+      font-size: 20px; }
+
+.signup_button {
+  background: #00b431;
+  border: 2px solid #009629;
+  font-size: 16px;
+  padding: 5px 10px 5px 10px;
+  font-weight: bold;
+  font-family: "Droid Sans", Tahoma, Arial, sans-serif;
+  font-size: 12px;
+  color: black;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  color: white;
+  text-decoration: none;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.148) 0px 1px 3px;
+  border-width: 1px;
+  margin: 2px 0px;
+  padding: 5px 15px;
+  display: block;
+  font-size: 18px;
+  text-align: center; }
+  .signup_button:hover {
+    background: #009629;
+    color: #e9eecf; }
+
+.signup_area {
+  font-family: "Droid Sans", Tahoma, Arial, sans-serif;
+  font-size: 12px;
+  color: black;
+  padding: 0px 10px;
+  text-align: center;
+  margin: 0 0 0 135px; }
+  .signup_area .link {
+    float: left; }
+  .signup_area .words {
+    font-size: 15px;
+    color: #333333;
+    float: left;
+    padding: 25px 0 0 10px; }
+
+.plan_message, .account_options, .error_message, .general_message {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  background: #b11621;
+  color: white;
+  padding: 10px;
+  margin-bottom: 15px; }
+  .plan_message h4, .account_options h4, .error_message h4, .general_message h4 {
+    font-family: "Droid Sans", Tahoma, Arial, sans-serif;
+    font-size: 12px;
+    color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 0 0 5px 0; }
+    .plan_message h4.signup, .account_options h4.signup, .error_message h4.signup, .general_message h4.signup {
+      font-weight: bold;
+      text-align: center;
+      padding-top: 7px; }
+      .plan_message h4.signup a, .account_options h4.signup a, .error_message h4.signup a, .general_message h4.signup a {
+        color: white; }
+        .plan_message h4.signup a:hover, .account_options h4.signup a:hover, .error_message h4.signup a:hover, .general_message h4.signup a:hover {
+          background-color: #1d91d7; }
+  .plan_message p, .account_options p, .error_message p, .general_message p {
+    font-family: "Droid Sans", Tahoma, Arial, sans-serif;
+    font-size: 12px;
+    color: black;
+    color: white;
+    margin-bottom: 5px;
+    line-height: 18px; }
+    .plan_message p.signup_link, .account_options p.signup_link, .error_message p.signup_link, .general_message p.signup_link {
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px; }
+      .plan_message p.signup_link a, .account_options p.signup_link a, .error_message p.signup_link a, .general_message p.signup_link a {
+        color: white; }
+  .plan_message ul, .account_options ul, .error_message ul, .general_message ul {
+    margin: 6px 0; }
+    .plan_message ul li, .account_options ul li, .error_message ul li, .general_message ul li {
+      background: url(/images/green_check_24px.png) no-repeat 0 4px;
+      padding: 9px 3px 9px 30px;
+      font-family: "Droid Sans", Tahoma, Arial, sans-serif;
+      font-size: 12px;
+      color: black;
+      color: white;
+      font-size: 14px; }
+  .plan_message.green, .account_options.green, .error_message.green, .general_message.green {
+    background: #3ac25f; }
+  .plan_message.blue, .account_options.blue, .error_message.blue, .general_message.blue {
+    -webkit-box-shadow: rgba(0, 0, 0, 0.148) 0px 1px 3px;
+    background: #43a2dc;
+    border-bottom: 1px solid #0084d4; }
+  .plan_message.gray, .account_options.gray, .error_message.gray, .general_message.gray {
+    -webkit-box-shadow: rgba(0, 0, 0, 0.148) 0px 1px 3px;
+    background: #b6b6b6;
+    border-bottom: 1px solid #777777; }
+  .plan_message.red, .account_options.red, .error_message.red, .general_message.red {
+    -webkit-box-shadow: rgba(0, 0, 0, 0.148) 0px 1px 3px;
+    border-bottom: 1px solid #860f18; }
+
+.contain.plans, .contain.plans_edit {
+  border: none;
+  background: none;
+  border-left: 1px solid #a2d2e4;
+  padding: 0 0 0 10px; }
+  .contain.plans h2, .contain.plans_edit h2 {
+    font-family: "Droid Sans", Tahoma, Arial, sans-serif;
+    font-size: 12px;
+    color: black;
+    font-size: 24px;
+    letter-spacing: -0.7px;
+    color: #19728e;
+    font-weight: 600; }
+  .contain.plans p.plan_instructions, .contain.plans_edit p.plan_instructions {
+    font-family: "Droid Sans", Tahoma, Arial, sans-serif;
+    font-size: 12px;
+    color: black;
+    font-size: 14px;
+    letter-spacing: -0.5px;
+    padding: 0 0 0 1px;
+    color: #19728e; }
+  .contain.plans .skip, .contain.plans_edit .skip {
+    padding: 5px 0 0 0;
+    font-size: 12px;
+    letter-spacing: -0.3px; }
+  .contain.plans .content, .contain.plans_edit .content {
+    padding: 0px;
+    margin: 0px; }
+    .contain.plans .content .build_area, .contain.plans_edit .content .build_area {
+      margin: 15px 0px;
+      border-bottom: 1px solid #a2d2e4; }
+      .contain.plans .content .build_area h5, .contain.plans_edit .content .build_area h5 {
+        font-family: Tahoma, Arial, sans-serif;
+        letter-spacing: -0.5px;
+        font-size: 20px;
+        padding: 0px 0px 0px 2px; }
+      .contain.plans .content .build_area .option, .contain.plans_edit .content .build_area .option {
+        font-family: "Droid Sans", Tahoma, Arial, sans-serif;
+        font-size: 12px;
+        color: black;
+        padding: 0 0 0 6px; }
+        .contain.plans .content .build_area .option p, .contain.plans_edit .content .build_area .option p {
+          color: #19728e; }
+        .contain.plans .content .build_area .option .title, .contain.plans_edit .content .build_area .option .title {
+          padding: 5px 5px 2px 5px;
+          font-weight: bold;
+          letter-spacing: -0.3px;
+          color: #19728e;
+          font-size: 14px; }
+    .contain.plans .content.signup, .contain.plans_edit .content.signup {
+      padding: 0 0 15px 0;
+      margin: 0 0 15px 0;
+      border-bottom: 1px solid #a2d2e4; }
+      .contain.plans .content.signup h4, .contain.plans_edit .content.signup h4 {
+        font-family: "Helvetica", Tahoma, Tahoma, sans-serif;
+        color: #0084d4;
+        font-weight: bold;
+        font-size: 20px; }
+      .contain.plans .content.signup p.setup_instructions, .contain.plans_edit .content.signup p.setup_instructions {
+        font-family: "Droid Sans", Tahoma, Arial, sans-serif;
+        font-size: 12px;
+        color: black;
+        color: #0084d4;
+        font-size: 12px;
+        letter-spacing: -0.5px; }
+.contain.plans_edit {
+  border-left: none;
+  border-right: 1px solid #a2d2e4;
+  padding: 0 10px 0 0; }
+
+.database_type {
+  font-family: "Droid Sans", Tahoma, Arial, sans-serif;
+  font-size: 12px;
+  color: black;
+  color: #666666;
+  margin: 0 0 10px 0;
+  border: 1px solid #0084d4;
+  background: white;
+  cursor: hand;
+  cursor: pointer;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px; }
+  .database_type:hover {
+    background: #deeff9; }
+  .database_type.selected {
+    border-width: 2px;
+    background: #deeff9; }
+  .database_type .checkbox {
+    float: left;
+    padding: 14px 5px 10px 10px; }
+  .database_type .database_info {
+    width: 80%;
+    float: left;
+    padding: 10px 10px 10px 5px;
+    border-right: 1px dotted #eaeaea; }
+    .database_type .database_info .name {
+      font-size: 15px; }
+      .database_type .database_info .name span {
+        color: #0084d4; }
+    .database_type .database_info .spec {
+      font-size: 12px;
+      padding: 3px 2px 5px 2px; }
+  .database_type .price {
+    float: left;
+    margin: 10px 0px 0px 0px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #0084d4;
+    width: 85px;
+    text-align: right; }
+
+p.current_plan {
+  font-size: 18px;
+  letter-spacing: -0.5px;
+  padding: 5px 0 0 0; }
+
+.free_trial {
+  text-align: center;
+  padding: 0px 0 20px 0; }
+  .free_trial p {
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    font-size: 40px;
+    letter-spacing: -1px;
+    background: #b11621;
+    color: white; }
+
+table.plans {
+  width: 100%; }
+  table.plans tr th {
+    text-align: center;
+    font-size: 35px;
+    width: 299px; }
+  table.plans tr.border {
+    border-bottom: 1px dotted #f1fafd; }
+  table.plans tr.description td {
+    color: #37648d;
+    font-size: 12px;
+    letter-spacing: -0.5px; }
+  table.plans tr td {
+    padding: 6px 5px 6px 5px;
+    text-align: center; }
+    table.plans tr td.large {
+      font-size: 22px;
+      color: #275682; }
+    table.plans tr td.border {
+      border-left: 1px solid #f1fafd;
+      border-right: 1px solid #f1fafd; }
+    table.plans tr td p.signup_link {
+      margin: 10px 0px 0px 75px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      background: #00b431;
+      border: 2px solid #8fab10;
+      font-size: 22px;
+      padding: 5px;
+      font-weight: bold;
+      font-family: Arial, san-serif;
+      width: "120px"; }
+      table.plans tr td p.signup_link a {
+        color: white;
+        text-decoration: none; }
+        table.plans tr td p.signup_link a:hover {
+          text-decoration: underline; }
+    table.plans tr td span {
+      font-weight: 800;
+      color: #003366; }
+  table.plans tr.addons td p {
+    font-size: 16px; }
