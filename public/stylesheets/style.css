@@ -22,7 +22,7 @@ p.post{
 	border-style:dashed;border-width:0 0 1px 0;
 }
 div.content{
-	border:red solid thin;
+	border: solid thin;
 	outline-color:#00ff00;
 	background:#fefce4;
 	border-radius: 4px;
@@ -75,7 +75,7 @@ article a:hover{color:#333333;text-decoration:underline;}
 .tag:hover{text-decoration:none;background-color:#ffffff;color:#000000;-webkit-transition:color .2s linear;}
 .search{border:0;width:6em;text-align:center;font-size:1em;margin:0.5em 0;vertical-align:right ;}
 
-.l_head{float:left;margin-left:-4em;box-shadow:0px 1px 4px #888;}
+.l_head{float:left;margin-left:-4em;}
 .r_head{float:right;margin-top:-2.5em;box-shadow:0px 1px 4px #888;}
 
 .btn {
@@ -109,6 +109,134 @@ article a:hover{color:#333333;text-decoration:underline;}
 .reg{
 	margin-left: 300px;
 }
+
+.content {
+	max-width: 690px;
+	margin: 20px auto;
+}
+.cell {
+	margin: 0 auto;
+	background-color: #fff;
+	clear: both;
+	padding: 18px 20px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+	margin-bottom: 20px;
+	border-radius: 4px;
+}
+.cell_loc{
+	float:right;
+	padding:2px 6px;
+	background:url(../images/bgnoise_lg.png);
+	border-radius: 9px;
+	border-color: #BABABA #BABABA #BABABA #FFF;
+	box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2) inset,
+				0 0 0 1px rgba(0, 0, 0, 0.2) inset;
+	font-size:6px;
+}
+.cell_author {
+	font-size: 14px;
+	vertical-align: middle;
+	line-height: 100%;
+	margin: 0 0 17px;
+}
+
+
+.cell_author img {
+	border-radius: 20px;
+	box-shadow: 0 0 6px hsla(0, 27%, 42%, .5);
+	width: 40px;
+	height: 40px;
+	max-width: 100%;
+	vertical-align: middle;
+	margin: 0 10px 0 0;
+	border: 0;
+}
+.cell_author img:hover{
+	box-shadow: 0 0 8px hsla(350, 89%, 48%, 0.69);
+}
+.cell_author a {
+	color: #9b8878;
+}
+
+
+.cell_author a:hover {
+	color: #300;
+}
+
+
+.cell_text {
+	word-break: break-all;
+	line-height: 160%;
+}
+
+
+.cell_bar {
+	margin: 15px 0 0 0;
+	height: 30px;
+	font-size: 12px;
+}
+
+
+.cell_bar ul li {
+	float: left;
+}
+
+
+.cell_bar ul li a {
+	display: block;
+	height: 28px;
+	line-height: 30px;
+	margin-right: 10px;
+	text-indent: 20px;
+	color: #BEBEBE;
+	width: 80px;
+	font-weight: 500;
+}
+
+
+.cell_bar ul li a:hover {
+	color: #9e8c7b;
+}
+
+
+.cell_bar_comm {
+	float: right;
+	margin: 0;
+	padding: 0;
+}
+
+
+.cell_bar_comm li {
+	float: left;
+}
+
+
+.cell_share {
+	float: right;
+}
+.share_icon {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	overflow: hidden;
+	background: url(../images/share_logo.png) no-repeat;
+}
+.share_sn {
+	float: right;
+	margin-right: 5px;
+	background-position: -50px 0px;
+}
+.share_tc {
+	float: right;
+	margin-right: 15px;
+	background-position: -100px 0px;
+}
+.share_rr {
+	float: right;
+	margin-right: 5px;
+	background-position: -150px 0px;
+}
+
 
 
 
