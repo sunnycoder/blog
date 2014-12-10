@@ -18,6 +18,7 @@ var crypto =require('crypto'),  // 用它生成散列值来加密密码。
     User = require('../models/user.js'),
     Post = require('../models/post.js'),
     Comment = require('../models/comment.js');
+var passport = require('passport');    
 var fs = require("fs"),
 	formidable = require("formidable");
 module.exports = function (app) {
@@ -108,6 +109,15 @@ module.exports = function (app) {
 			success:req.flash('success').toString(),
 			error:req.flash('error').toString()
 		});
+	});
+	app.get('/login/github',passport.authenticate("github",{session:false}));
+	app.get('/login/github/callback',passport.authenticate("github",{
+		session : false,
+		failureRedirect : '/login',
+		successFlash : 'login success!'
+	}),function (req,res) {
+		req.session.user = {name:req.user.username,head:"https://gravatar.com/avatar/"+ req.user._json.gravatar_id + "?s=48"};
+		res.redirect('/');
 	});
 	app.post('/login',checkNotLogin);
 	app.post('/login',function (req,res) {

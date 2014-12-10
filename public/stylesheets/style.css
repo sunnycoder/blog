@@ -19,14 +19,14 @@ p.info{
 	margin-right: 10em
 }
 p.post{
-	border-style:dashed;border-width:0 0 1px 0;
+	border-style:dashed;border-width:0 0 1px 0;text-align: center;
 }
 div.content{
 	border: solid thin;
 	outline-color:#00ff00;
 	background:#fefce4;
 	border-radius: 4px;
-	text-align: center;
+  margin-bottom: 500px;
 }
 header{
 	border-bottom:1px 
@@ -37,36 +37,19 @@ header{
 	padding: 100px 50px 400px 0;
 	border-radius: 4px;
 }
-h1{
-/*background: #7EC0EE;*/
-border-radius: 4px;
-color: #fff;
-font-size: 24pt;
-margin: 0;
-padding: 1.2em 0;
-margin-bottom: 00px;
+#label{
+  color: #00EEEE;
 }
-h2{
-border-radius: 4px;
-color: #fff;
-font-size: 24pt;
-margin: 0;
-padding: 1.2em 0;
-text-align: center;
-}
-
 
 nav{float:left;font-family:"Microsoft YaHei";font-size:1.1em;text-transform:uppercase;margin-left:-12em;width:9em;text-align:right;}
 nav a{display:block;text-decoration:none;padding:.7em 1em;color:#000000;}
 nav a:hover{background-color:#ff0000;color:#f9f9f9;-webkit-transition:color .2s linear;}
-article{font-size:16px;padding-top:.5em;}
-article a{color:#A020F0;text-decoration:none;}
-article a:hover{color:#333333;text-decoration:underline;}
+article{font-size:16px;padding-top:.5em;margin-bottom: 10em}
 .info{font-size:14px;}
 .edit{margin:3px;padding:2px 5px;border-radius:3px;background-color:#f3f3f3;color:#333;font-size:13px;}
 .edit:hover{text-decoration:none;background-color:#f00;color:#fff;-webkit-transition:color .2s linear;}
-.prepage a{float:left;text-decoration:none;padding:.5em 1em;color:#ff0000;font-weight:bold;}
-.nextpage a{float:right;text-decoration:none;padding:.5em 1em;color:#ff0000;font-weight:bold;}
+.prepage a{float:left;text-decoration:none;padding:.5em 1em;color:#ff0000;font-weight:bold;margin-top: 2em;}
+.nextpage a{float:right;text-decoration:none;padding:.5em 1em;color:#ff0000;font-weight:bold;margin-top: 2em;display: inline-block;}
 .prepage a:hover,.nextpage a:hover{text-decoration:none;background-color:#ff0000;color:#f9f9f9;-webkit-transition:color .2s linear;}
 .archive{list-style:none;line-height:28px;}
 .archive h3{margin:0.5em 0;}
@@ -74,7 +57,8 @@ article a:hover{color:#333333;text-decoration:underline;}
 .tag{background-color:#ff0000;border-radius:3px;font-size:14px;color:#ffffff;display:inline-block;padding:0 5px;margin-bottom:8px;}
 .tag:hover{text-decoration:none;background-color:#ffffff;color:#000000;-webkit-transition:color .2s linear;}
 .search{border:0;width:6em;text-align:center;font-size:1em;margin:0.5em 0;vertical-align:right ;}
-
+.github{background-color:#4169E1;border-radius:3px;font-size:14px;color:#ffffff;display:inline-block;padding:0 5px;margin-bottom:8px;}
+.github:hover{text-decoration:none;background-color:#ffffff;color:#000000;-webkit-transition:color .2s linear;}
 .l_head{float:left;margin-left:-4em;}
 .r_head{float:right;margin-top:-2.5em;box-shadow:0px 1px 4px #888;}
 

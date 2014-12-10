@@ -19,6 +19,8 @@ var accessLog = fs.createWriteStream('access.log', {flags:'a'});
 var errorLog = fs.createWriteStream('error.log',{flags:'a'});
 
 var app = express();
+var passport = require('passport')
+    GithubStrategy = require('passport-github').Strategy;
 
 
 
@@ -27,9 +29,8 @@ app.set('port',process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-
 // uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev')); //  Express 自带的logger 中间件实现了终端日志的输出
 app.use(logger({stream:accessLog})); // 把日志保存为日志文件
 app.use(bodyParser.json());
@@ -68,6 +69,9 @@ app.use(multer({
     }
 }));
 
+
+app.use(passport.initialize()); //初始化Passport
+
 routes(app);
 
 
@@ -77,6 +81,15 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
+
+
+passport.use(new GithubStrategy({
+    clientID: "f0e8d6815c5f5eb69ecf",
+    clientSecret : "2b6f080efc7356b3eadb079571274722ffb9b3b5",
+    callbackURL : "http://localhost:3000/login/github/callback"
+},function (accessToken,refreshToken,profile,done) {
+    done(null,profile);
+}));
 
 // error handlers
 

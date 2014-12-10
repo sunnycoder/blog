@@ -521,14 +521,14 @@ button,
 select,
 textarea {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 13px;
+  font-size: 18px;
   font-weight: normal;
   line-height: 18px;
 }
 label {
   display: block;
   margin-bottom: 20px;
-  color: #333333;
+  color: #00EEEE;
 }
 input,
 textarea,

@@ -6,8 +6,7 @@
     <h2><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a>
     </h2>
     <div class="cell_author l_head" > 
-    <a href="/u/<%= post.name %>"><img src="<%= post.head %>" title="<%= post.name %>" /></a>
-    <a href="/>"><%= post.name %></a>  
+    <a href="/u/<%= post.name %>"><img src="/images/lufei.jpg" title="<%= post.name %>" /></a>
     </div>
     </p>
     <div > 
@@ -21,7 +20,7 @@
       <% } %>
       <% }) %>
           <% if (post.reprint_info.reprint_from) { %>
-            <br> <a href="/u/<%= post.reprint_info.reprint_from.name %>/<%=post.reprint_info_reprint_from_day %>/<%= post.reprint_info.reprint_from.title %>">原文链接</a>  
+            <br> <a class="reprint"  href="/u/<%= post.reprint_info.reprint_from.name %>/<%=post.reprint_info_reprint_from_day %>/<%= post.reprint_info.reprint_from.title %>">原文链接</a>  
     <% } %> 
     </p>
     <p class="post"><%- post.post %></p>        
@@ -41,17 +40,19 @@
       <%= 0 %>
       <% } %>
     </p>
-    <div class="bshare-custom" style="float:right;height:28px;margin-top: 4px;"><a title="分享到QQ空间" class="bshare-qzone"></a>
+    <div class="bshare-custom" style="float:right;height:18px;margin-top:4px;">
+            <a title="分享到QQ空间" class="bshare-qzone"></a>
             <a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
             <a title="分享到人人网" class="bshare-renren"></a>
             <a title="分享到腾讯微博" class="bshare-qqmb"></a>
             <a title="分享到网易微博" class="bshare-neteasemb"></a>
+
             <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&uuid=;pophcol=2&lang=zh"></script>
             <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
             <script type="text/javascript" charset="utf-8">
             bShare.addEntry({
-                  title:"OMinds分享",
-                  summary:'分享你的心事。' ,
+                  title:"Blog分享",
+                  summary:'分享你的Blog。' ,
               vTag:'OMinds'});
           </script>
           </ul>
@@ -61,5 +62,5 @@
       </div>
     </div>
     </div>
-  <%- include paging %>
+    <%- include paging %>
   <%- include footer %>

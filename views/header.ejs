@@ -7,29 +7,126 @@
 	<title>Blog</title>
 	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/imook.css">
 	
+	<script charset="utf-8" src="/kindEditor/kindeditor-min.js"></script>
+	<script charset="utf-8" src="/kindEditor/lang/zh_CN.js"></script>
+	<script src="/jquery-1.11.1.min.js"></script>
+	<script>
+	var editor;
+	KindEditor.ready(function (K) {
+		editor = K.create('textarea',{
+			allowImageUpload : false,
+			items : [
+				'fontname','fontsize','|', 'forecolor', 'hilitecolor', 'bold', 'italic',
+    			'underline', 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright',
+    			'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+		});
+	});
+	</script>
+	<script>
+$(document).ready(function()
+{
+	/*动态显示隐藏菜单栏*/
+    var isShow=false;	
+    // $("#nav_list").hide();
+    $(".set_btn").mouseover(function(){
+        $("#nav_list").show();
+    });
+    $("#nav_list").mouseover(function(){
+        isShow=true;   
+        $(this).show(); 
+    });
+    $(".set_btn").mouseout(function(){
+        $("#nav_list").hide();
+    });
+    $("#nav_list").mouseout(function(){
+        if(isShow)
+        {
+            $(this).hide(); 
+            isShow=false;
+        }   
+    });
+})
+	</script>
+
 </head>
 <body class="warpper">
-<!-- 	<a href="/"><img alt="Blog.  Yep, it is that easy." src="/images/mhq_top_small.png?1412704177"  class='navigation'/> -->
-	<nav class="navigation">
-		<span><a title="Home" href="/">home</a></span>
-		<span><a href="/archive" title="archive">archive</a></span>	
-		<span><a href="/tags" title="tags">tags</a></span>
-		<span><a href="/links" title="links">links</a></span>
-		<% if(user) {  %>
-		<span><a href="/upload" title="upload">upload</a></span>
-		<span><a href="/post" title="post">post</a></span>
-		<span><a href="/logout" title="logout">logout</a></span>
-		<% } else { %>
-		<span><a title="Login" href="/login">login</a></span>
-		<span><a title="Register" href="/reg">register</a></span>
-		<% } %>
-		<span><form action="/search" method="GET"> <input type="text" name="keyword" placeholder="SEARCH" class="search"></form></span>
-	</nav>
-		<header >
-		<h1><%= title %></h1>
-	</header>
+	<div id="header">  
+    <div class="container" id="nav">
+        <div id="logo"><a href="/" target="_self">Blog</a></div>  
+        <div class="search-area">
+            <form action="/search" method="GET" name="search-form">
+            	<input class="js-input-keyword search-input" type="text" name="keyword" placeholder="SEARCH"  autocomplete="off" values="">
+            	<input type="button" class="btn_search js-btn-search">
+            	<dl class="search-area-result"></dl>
+            </form>
+
+        </div>
+                <ul class="l" id="nav-item">
+            <li><a title="Home" href="/">Home</a></li>
+            <li><span><a href="/archive" title="Archive">Archive</a></span>	</li>
+            <li><a href="/tags" title="tags">Tags</a></li>
+
+            <li id="MyCourseOn"><a href="/links" title="Links">Links</a></li>
+                            <% if(user) {  %>
+                	<li><a href="/upload" title="upload">Upload</a></li>
+                	<li><a href="/post" title="Post">Post</a></li>
+                	<li><a href="/logout" title="Logout">Logout</a></li>
+				<% } else { %>
+					<li><a title="Login" href="/login">Login</a></li>
+					<li><a title="Register" href="/reg">Register</a></li>
+					<% } %>
+        </ul> 
+        <div id="login-area">
+            <ul>
+        	    <li class="my_message">
+                    <a href="/message" title="Message" target="_self">
+                        <i class="msg_icon" style="display: none;"></i>
+                        <span style="display: none;">Message</span>
+                    </a>
+                </li>
+                <li class="my_mp" title="Level">
+                    <a href="/space/experience" target="_self">
+                        <span class="mp">Level</span>
+                        <span class="mp_num">99</span>
+                    </a>
+                </li>
+                 
+				
+                <li class="set_btn">
+                <% if(user) {  %>
+                    <a id="header-avator" action-type="my_menu" title="<%= user.name %>" href="/user" target="_self"><img src='/images/lufei.jpg' width='40' height='40' />
+                    </a>
+                   <ul id="nav_list">
+                    	<li><a id="my_space" href="/user" target="_self"><%= user.name %></a></li>
+                        <li><a id="my_setting" href="/user" target="_self">Setting</a></li>
+                        <li><a id="my_logout" href="/logout" target="_self">Logout</a></li>
+                    </ul>
+				<% } else { %>
+					<a id="header-avator" action-type="my_menu" title="None"  href="/login" target="_self"><img src='/images/cxy.jpg' width='40' height='40' />
+                    </a>
+                     <ul id="nav_list">
+                    	<li><a id="my_space" href="/login" target="_self">Login</a></li>
+                        <li><a id="my_setting" href="/reg" target="_self">Register</a></li>
+                        <li><a id="my_logout" href="/login/github" target="_self">Github</a></li>
+                    </ul>
+
+                    <% } %>
+                </li>
+
+            </ul>  
+        </div>
+        	</div>
+</div>
+	<header >
+		<h1 id="title"><%= title %></h1>		
+
+</div>
+	</header>	
+
 <article>
+
 <% if (success) { %>
 	<div><%= success  %></div>
 <% } %>

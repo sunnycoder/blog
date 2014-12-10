@@ -1,3 +1,64 @@
+
+
 </article>
+<div id="footer" >
+    <div class="waper">
+        <div class="footerwaper">
+            <div class="footer_intro">
+                <div class="footer_logo"></div>
+                <p>博闻天下！客观分析！<br />
+                Copyright © 2014 dhyuestc All Rights Reserved | 天朝ICP备 88888888-3
+                </p>
+            </div>
+            <div class="footer_link">
+                <ul>
+                    <li><a href="/">网站首页</a></li>
+                    <li><a href="/about/job">人才招聘</a></li>
+                    <li> <a href="/about/contact">联系我们</a></li>
+                    <li><a href="/subject/html">专题页面</a></li>
+                    <li><a href="/about/us">关于我们</a></li>
+                    <li> <a href="/about/recruit">讲师招募</a></li>                    
+                    <li> <a href="/user/feedback">意见反馈</a></li>
+                    
+                    <li> <a href="/about/friendly">友情链接</a></li>
+                </ul>
+            </div>
+            <div class="attention">
+                在这里关注我们的动向
+                <br/>
+                <a id="qzone" href="http://user.qzone.qq.com/1346579041/" target="_blank" title="QQ空间">QQ空间</a> 
+                <a id="sinaweibo" href="http://weibo.com/u/2081612345"  target="_blank" title="新浪微博">新浪微博</a>
+                <a id="qqweibo" href="http://t.qq.com/weibocekrily"  target="_blank" title="腾讯微博">腾讯微博</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="J_GotoTop" class="gotoTopBtn">
+    <a class="goto_top_diaocha" href="/" style="display:none" target="_blank" id="feedBack"></a>
+    <a class="goto_top_app" href="/" id="feedBack">
+        <div id="erweima">
+        </div>
+    </a>
+    <a class="goto_top_backMeg" href="/feedback" target="_blank" id="feedBack"></a>
+    <a class="goto_top" href="javascript:;" id="backTop"></a>
+</div>
+
+<script>
+window.onload = function(){
+  var oTop = document.getElementById("backTop");
+  var screenw = document.documentElement.clientWidth || document.body.clientWidth;
+  var screenh = document.documentElement.clientHeight || document.body.clientHeight;
+  oTop.style.left = screenw - oTop.offsetWidth +"px";
+  oTop.style.top = screenh - oTop.offsetHeight + "px";
+  window.onscroll = function(){
+    var scrolltop = document.documentElement.scrollTop || document.body.scrollTop;
+    oTop.style.top = screenh - oTop.offsetHeight + scrolltop +"px";
+  }
+  oTop.onclick = function(){
+    document.documentElement.scrollTop = document.body.scrollTop =0;
+  }
+}  
+
+</script>
 </body>
 </html>
