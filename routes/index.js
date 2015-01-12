@@ -43,8 +43,56 @@ module.exports = function (app) {
 		  });
 		});
 	});
-	// app.post('/',function (req,res) {
-	// });
+
+	// test restful
+	app.get('/rest/:name/:day/:title',function (req,res) {
+		// var page = req.query.p ? parseInt(req.query.p) : 1;
+		// // 查询并返回第page页的10篇文章
+		// Post.getTen(null,page,function (err,posts,total) {
+		// 	if(err) {
+		// 		console.log("message");
+		// 		posts = [];
+		// 	}
+		// 	// res.send(posts);
+
+		// 	res.json(posts);
+		// });
+		console.log("message");
+		Post.getOne(req.params.name,req.params.day,req.params.title,function (err,post) {
+			if (err) {
+				req.flash('error',err);
+				return res.redirect('/');
+			}
+			res.send(post);
+		});
+	});
+
+	app.get('/feedback',function (req,res) {
+		var title = req.query.title;
+		var description = req.query.description;
+		var location = req.query.location;
+		res.send("feedback('accept!')");
+		console.log("title:"+title);
+		console.log("description:"+description);
+		console.log("location:"+location);
+	});	
+
+	app.get('/blog',function (req,res) {
+		var data = [{"_id":"54a206b97f1c64cab2000000"
+		,"publishedOn":"2014-12-29 16:20:39"
+		,"title":"Introduction to Markdown"
+		,"url":"http://sunnycoder.github.io/2014/12/12/markdown/"}
+		,{"_id":"54a364987f1c64cab2000001"
+		,"publishedOn":"2014-12-29 16:20:39"
+		,"title":"Introduction to Markdown2"
+		,"url":"http://sunnycoder.github.io/2014/12/12/markdown/"}];
+		var jsonStr = 'call'+'('+JSON.stringify(data)+')';	
+		// console.log(jsonStr);
+		res.send(jsonStr);
+		console.log(req.query.callback);
+	});
+
+
 	app.get('/reg',function (req,res) {
 		res.render('reg',{
 			title:'Register',
